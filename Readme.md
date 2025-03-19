@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Марина Барсукова](https://up.htmlacademy.ru/javascript-individual/2/user/2414391).
-* Наставник: `Неизвестно`.
+* Студент: [Марина Якубовская](https://up.htmlacademy.ru/javascript-individual/2/user/2414391).
+* Наставник: `Сергей Остаповец`.
 
 ---
 
