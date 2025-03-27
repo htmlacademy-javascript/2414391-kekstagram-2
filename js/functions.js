@@ -5,13 +5,19 @@
 
 function checkLength(str, maxLength) {
   if ((typeof str !== 'string')) {
-    return `${str} не является строкой`
+    return false;
   }
+  if (typeof maxLength !== 'number' || maxLength < 0) {
+    return false;
+  }
+
   return str.length <= maxLength;
 }
 
 /* Функция для проверки, является ли строка палиндромом. Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево */
 
+
+//v1
 
 function isPalindrome(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
@@ -21,6 +27,8 @@ function isPalindrome(str) {
 
   return newStr === newStr.split("").reverse().join("");
 }
+
+//v2
 
 function isPalindrome(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
@@ -36,4 +44,20 @@ function isPalindrome(str) {
   return result === newStr;
 }
 
+/* Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN
+Предусмотрите случай, когда вместо строки приходит число. Возвращать функция по-прежнему должна только целые положительные числа*/
 
+function getNumbersFromString(str) {
+  let result = '';
+
+  if (typeof str !== 'string') {
+    str = str.toString();
+  }
+  for (let i = 0; i < str.length; i++) {
+    if (!Number.isNaN(parseInt(str[i]))) {
+      result += str[i];
+    }
+  }
+
+  return result.length !== 0 ? parseInt(result) : NaN;
+}
