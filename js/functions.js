@@ -23,9 +23,9 @@ function isPalindromeV1(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
     return false;
   }
-  let newStr = str.toString().replaceAll(" ", "").toLowerCase();
+  const newStr = str.toString().replaceAll(' ', '').toLowerCase();
 
-  return newStr === newStr.split("").reverse().join("");
+  return newStr === newStr.split('').reverse().join('');
 }
 
 //v2
@@ -34,7 +34,7 @@ function isPalindromeV2(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
     return false;
   }
-  let newStr = str.toString().replaceAll(" ", "").toLowerCase();
+  const newStr = str.toString().replaceAll(' ', '').toLowerCase();
   let result = '';
 
   for (let i = newStr.length - 1; i >= 0; i--) {
@@ -54,10 +54,10 @@ function getNumbersFromString(str) {
     str = str.toString();
   }
   for (let i = 0; i < str.length; i++) {
-    if (!Number.isNaN(parseInt(str[i]))) {
+    if (!Number.isNaN(parseInt(str[i], 10))) {
       result += str[i];
     }
   }
 
-  return result.length !== 0 ? parseInt(result) : NaN;
+  return result.length !== 0 ? parseInt(result, 10) : NaN;
 }
