@@ -19,7 +19,7 @@ function checkLength(str, maxLength) {
 
 //v1
 
-function isPalindrome(str) {
+function isPalindromeV1(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
     return false;
   }
@@ -30,7 +30,7 @@ function isPalindrome(str) {
 
 //v2
 
-function isPalindrome(str) {
+function isPalindromeV2(str) {
   if (typeof str !== 'string' && typeof str !== 'number') {
     return false;
   }
