@@ -10,5 +10,30 @@ function checkLength(str, maxLength) {
   return str.length <= maxLength;
 }
 
+/* Функция для проверки, является ли строка палиндромом. Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево */
+
+
+function isPalindrome(str) {
+  if (typeof str !== 'string' && typeof str !== 'number') {
+    return false;
+  }
+  let newStr = str.toString().replaceAll(" ", "").toLowerCase();
+
+  return newStr === newStr.split("").reverse().join("");
+}
+
+function isPalindrome(str) {
+  if (typeof str !== 'string' && typeof str !== 'number') {
+    return false;
+  }
+  let newStr = str.toString().replaceAll(" ", "").toLowerCase();
+  let result = '';
+
+  for (let i = newStr.length - 1; i >= 0; i--) {
+    result += newStr[i];
+  }
+
+  return result === newStr;
+}
 
 
