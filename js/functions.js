@@ -3,36 +3,36 @@
 А
 */
 
-function checkLength(str, maxLength) {
+const checkLength = (str, maxLength) => {
   if ((typeof str !== 'string')) {
-    return false;
+    throw new TypeError('Переданный аргумент не является строкой');
   }
   if (typeof maxLength !== 'number' || maxLength < 0) {
-    return false;
+    throw new Error('Длина строки меньше 0 или не является числом');
   }
 
   return str.length <= maxLength;
-}
+};
 
 /* Функция для проверки, является ли строка палиндромом. Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево */
 
 
 //v1
 
-function isPalindromeV1(str) {
+const isPalindromeV1 = (str) => {
   if (typeof str !== 'string' && typeof str !== 'number') {
-    return false;
+    throw new TypeError('Переданный аргумент не является строкой или числом');
   }
   const newStr = str.toString().replaceAll(' ', '').toLowerCase();
 
   return newStr === newStr.split('').reverse().join('');
-}
+};
 
 //v2
 
-function isPalindromeV2(str) {
+const isPalindromeV2 = (str) => {
   if (typeof str !== 'string' && typeof str !== 'number') {
-    return false;
+    throw new TypeError('Переданный аргумент не является строкой или числом');
   }
   const newStr = str.toString().replaceAll(' ', '').toLowerCase();
   let result = '';
@@ -42,12 +42,12 @@ function isPalindromeV2(str) {
   }
 
   return result === newStr;
-}
+};
 
 /* Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN
 Предусмотрите случай, когда вместо строки приходит число. Возвращать функция по-прежнему должна только целые положительные числа*/
 
-function getNumbersFromString(str) {
+const getNumbersFromString = (str) => {
   let result = '';
 
   if (typeof str !== 'string') {
@@ -60,4 +60,4 @@ function getNumbersFromString(str) {
   }
 
   return result.length !== 0 ? parseInt(result, 10) : NaN;
-}
+};
