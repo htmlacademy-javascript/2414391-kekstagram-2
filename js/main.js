@@ -49,13 +49,6 @@ const createRandomNumberFromRangeGenerator = (min, max) => {
 
 const generatePhotoId = createRandomNumberFromRangeGenerator(1, 25);
 const generatePhotoName = createRandomNumberFromRangeGenerator(1, 25);
-const createPhotoAddress = () => `photos/${generatePhotoName()}.jpg`;
-
-const createAvatarAddress = () => {
-  const generateAvatarName = getRandomInteger(1, 6);
-
-  return `img/avatar-${generateAvatarName}.svg`;
-};
 
 const getRandomArrayElement = (array) => {
   const randomIndex = getRandomInteger(0, array.length - 1);
@@ -66,7 +59,7 @@ const getRandomArrayElement = (array) => {
 //создание объекта с описанием комментария к фотографии пользователя
 const createUserPhotoComments = (index) => ({
   id: index + 1,
-  avatar: createAvatarAddress(),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: getRandomArrayElement(textMessages),
   name: getRandomArrayElement(commentatorNames)
 });
@@ -80,10 +73,13 @@ const generateUserPhotoCommentsCount = () => {
 //создание объекта с описанием фотографии, опубликованной пользователем
 const createUserPhotoDescription = () => ({
   id: generatePhotoId(),
-  url: createPhotoAddress(),
+  url: `photos/${generatePhotoName()}.jpg`,
   description: getRandomArrayElement(photoDescriptions),
   likes: getRandomInteger(15, 200),
   comment: generateUserPhotoCommentsCount()
 });
 
 const userPhotosDescriptions = Array.from({ length: PHOTO_DESCRIPTION_COUNT }, createUserPhotoDescription);
+
+
+
