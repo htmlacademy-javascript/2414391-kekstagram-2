@@ -76,5 +76,3 @@ const createUserPhotoDescription = () => ({
 });
 
 const userPhotosDescriptions = Array.from({ length: PHOTO_DESCRIPTION_COUNT }, createUserPhotoDescription);
-
-console.log(userPhotosDescriptions);
