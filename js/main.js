@@ -64,11 +64,7 @@ const createUserPhotoComments = (index) => ({
   name: getRandomArrayElement(commentatorNames)
 });
 
-const generateUserPhotoCommentsCount = () => {
-  const userPhotoComments = Array.from({ length: getRandomInteger(0, 30) }, (_, i) => createUserPhotoComments(i));
-
-  return userPhotoComments;
-};
+const generateUserPhotoCommentsCount = () => Array.from({ length: getRandomInteger(0, 30) }, (_, i) => createUserPhotoComments(i));
 
 //создание объекта с описанием фотографии, опубликованной пользователем
 const createUserPhotoDescription = () => ({
@@ -80,3 +76,5 @@ const createUserPhotoDescription = () => ({
 });
 
 const userPhotosDescriptions = Array.from({ length: PHOTO_DESCRIPTION_COUNT }, createUserPhotoDescription);
+
+console.log(userPhotosDescriptions);
