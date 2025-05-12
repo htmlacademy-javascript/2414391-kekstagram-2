@@ -10,7 +10,7 @@ const createUserPhotoDescription = () => ({
   url: `photos/${generatePhotoName()}.jpg`,
   description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
   likes: getRandomInteger(15, 200),
-  comment: Array.from({ length: getRandomInteger(0, 30) }, (_, i) => createUserPhotoComment(i))
+  comments: Array.from({ length: getRandomInteger(0, 30) }, (_, i) => createUserPhotoComment(i))
 });
 
 const createPhotosDescriptions = () => Array.from({ length: PHOTO_DESCRIPTION_COUNT }, createUserPhotoDescription);
