@@ -1,6 +1,6 @@
 import { createPhotosDescriptions } from './data-generators/photos-descriptions.js';
-import { drawUsersPictures } from './draw-users-pictures.js';
+import { drawUsersPhotos } from './draw-users-photos.js';
 
-const usersPictures = createPhotosDescriptions();
+const usersPhotos = createPhotosDescriptions();
 
-drawUsersPictures(usersPictures);
+drawUsersPhotos(usersPhotos);
