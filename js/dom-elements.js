@@ -5,7 +5,7 @@ const photoTemplate = document.querySelector('#picture')
 const photosContainer = document.querySelector('.pictures');
 const usersPhotosListFragment = document.createDocumentFragment();
 
-// полномасштабный экран
+// полномасштабное изображение
 const photoModal = document.querySelector('.big-picture');
 const bigPictureImg = photoModal.querySelector('.big-picture__img img');
 const likesCount = photoModal.querySelector('.likes-count');
@@ -19,6 +19,7 @@ const commentTemplate = document.querySelector('#comment')
   .content
   .querySelector('.social__comment');
 const commentsListFragment = document.createDocumentFragment();
+const photoModalCloseButton = photoModal.querySelector('.big-picture__cancel');
 
 
 export {
@@ -35,5 +36,6 @@ export {
   commentsLoader,
   photoCaption,
   commentTemplate,
-  commentsListFragment
+  commentsListFragment,
+  photoModalCloseButton
 }

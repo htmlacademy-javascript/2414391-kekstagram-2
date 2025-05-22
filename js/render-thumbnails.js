@@ -1,20 +1,23 @@
 import {
+  photoModal,
   photoTemplate,
   usersPhotosListFragment,
   photosContainer
 } from './dom-elements.js';
+import { onThumbnailClick } from './photo-modal.js';
 
-const drawUsersPhotos = (usersPhotos) => {
+const renderThumbnails = (usersPhotos) => {
   usersPhotos.forEach(({ id, url, description, likes, comments }) => {
     const photoElement = photoTemplate.cloneNode(true);
     photoElement.querySelector('.picture__img').src = url;
     photoElement.querySelector('.picture__img').alt = description;
     photoElement.querySelector('.picture__comments').textContent = comments.length;
     photoElement.querySelector('.picture__likes').textContent = likes;
-    photoElement.setAttribute('data-id', id);
+    photoElement.setAttribute('data-photo-id', id);
     usersPhotosListFragment.appendChild(photoElement);
   });
   photosContainer.appendChild(usersPhotosListFragment);
+  onThumbnailClick(usersPhotos);
 };
 
-export { drawUsersPhotos };
+export { renderThumbnails };
