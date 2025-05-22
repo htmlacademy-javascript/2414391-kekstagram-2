@@ -273,8 +273,8 @@
           <!-- Просмотр изображения -->
           <div class="big-picture__img">
             <img
-              src="img/logo-background-3.jpg"
-              alt="Девушка в купальнике"
+              src=""
+              alt=""
               width="600"
               height="600"
             />
@@ -290,41 +290,18 @@
                 width="35"
                 height="35"
               />
-              <p class="social__caption">Тестим новую камеру! =)</p>
+              <p class="social__caption"></p>
               <p class="social__likes">
-                Нравится <span class="likes-count">356</span>
+                Нравится <span class="likes-count"></span>
               </p>
             </div>
 
             <!-- Комментарии к изображению -->
             <div class="social__comment-count">
-              <span class="social__comment-shown-count">5</span> из
-              <span class="social__comment-total-count">125</span> комментариев
+              <span class="social__comment-shown-count"></span> из
+              <span class="social__comment-total-count"></span> комментариев
             </div>
-            <ul class="social__comments">
-              <li class="social__comment">
-                <img
-                  class="social__picture"
-                  src="img/avatar-4.svg"
-                  alt="Аватар комментатора фотографии"
-                  width="35"
-                  height="35"
-                />
-                <p class="social__text">
-                  Мега фото! Просто обалдеть. Как вам так удалось?
-                </p>
-              </li>
-              <li class="social__comment">
-                <img
-                  class="social__picture"
-                  src="img/avatar-3.svg"
-                  alt="Аватар комментатора фотографии"
-                  width="35"
-                  height="35"
-                />
-                <p class="social__text">Да это фоташоп!!!!!!!!</p>
-              </li>
-            </ul>
+            <ul class="social__comments"></ul>
 
             <!-- Кнопка для загрузки новой порции комментариев -->
             <button
@@ -405,6 +382,20 @@
         </ul>
       </div>
     </footer>
+
+     <!-- Шаблон комментария под фото -->
+    <template id="comment">
+      <li class="social__comment">
+          <img
+            class="social__picture"
+            src=""
+            alt=""
+            width="35"
+            height="35"
+            />
+            <p class="social__text"></p>
+      </li>
+    </template>
 
     <!-- Шаблон изображения случайного пользователя -->
     <template id="picture">
