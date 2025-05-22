@@ -38,4 +38,4 @@ export {
   commentTemplate,
   commentsListFragment,
   photoModalCloseButton
-}
+};

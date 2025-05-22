@@ -36,23 +36,19 @@ const renderPhotoModal = ({ url, likes, comments, description }) => {
     commentCountBlock.textContent = 'Нет комментариев';
   } else {
     commentShownCount.textContent = comments.length <= 5 ? comments.length : 5;
-  };
+  }
   photoCaption.textContent = description;
   renderCommentsList(comments);
-}
+};
+
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closePhotoModal();
+  }
+};
 
 //открытие полномасштабного изображения по клику на миниатюру
-
-const onThumbnailClick = (usersPhotos) => {
-  photosContainer.addEventListener('click', (evt) => {
-    const pictureEl = evt.target.closest('.picture');
-    if (pictureEl) {
-      const clickedPhotoIndex = Number(pictureEl.getAttribute('data-photo-id'));
-      const clickedPhoto = usersPhotos.find(photo => photo.id === clickedPhotoIndex);
-      openPhotoModal(clickedPhoto);
-    }
-  });
-}
 
 const openPhotoModal = (userPhoto) => {
   photoModal.classList.remove('hidden');
@@ -61,28 +57,31 @@ const openPhotoModal = (userPhoto) => {
   commentCountBlock.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
-}
+};
 
-
+const onThumbnailClick = (usersPhotos) => {
+  photosContainer.addEventListener('click', (evt) => {
+    const pictureEl = evt.target.closest('.picture');
+    if (pictureEl) {
+      const clickedPhotoIndex = Number(pictureEl.getAttribute('data-photo-id'));
+      const clickedPhoto = usersPhotos.find((photo) => photo.id === clickedPhotoIndex);
+      openPhotoModal(clickedPhoto);
+    }
+  });
+};
 
 // закрытие полномасштабного иображения
+
 const closePhotoModal = () => {
   photoModal.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   document.body.classList.remove('modal-open');
   socialComments.innerHTML = '';
-}
+};
 
 photoModalCloseButton.addEventListener('click', () => {
   closePhotoModal();
 });
-
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePhotoModal();
-  }
-};
 
 export { onThumbnailClick };
 

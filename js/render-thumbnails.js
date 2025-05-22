@@ -1,5 +1,4 @@
 import {
-  photoModal,
   photoTemplate,
   usersPhotosListFragment,
   photosContainer
