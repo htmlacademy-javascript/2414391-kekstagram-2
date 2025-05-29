@@ -1,6 +1,6 @@
 import {
   photosContainer,
-  photoModal,
+  photoModalElement,
   commentsLoader,
   photoModalCloseButton,
   bigPictureImg,
@@ -29,29 +29,30 @@ const renderCommentsList = (comments) => {
 };
 
 const renderPhotoModal = ({ url, likes, comments, description }) => {
+  const maxCommentShownCount = 5;
   bigPictureImg.src = url;
   likesCount.textContent = likes;
   commentTotalCount.textContent = comments.length;
   if (comments.length === 0) {
     commentCountBlock.textContent = 'Нет комментариев';
   } else {
-    commentShownCount.textContent = comments.length <= 5 ? comments.length : 5;
+    commentShownCount.textContent = comments.length <= maxCommentShownCount ? comments.length : maxCommentShownCount;
   }
   photoCaption.textContent = description;
   renderCommentsList(comments);
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closePhotoModal();
   }
-};
+}
 
-//открытие полномасштабного изображения по клику на миниатюру
+//открытие полномасштабного изображения
 
 const openPhotoModal = (userPhoto) => {
-  photoModal.classList.remove('hidden');
+  photoModalElement.classList.remove('hidden');
   renderPhotoModal(userPhoto);
   document.body.classList.add('modal-open');
   commentCountBlock.classList.add('hidden');
@@ -59,30 +60,27 @@ const openPhotoModal = (userPhoto) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onThumbnailClick = (usersPhotos) => {
+const initializePhotoModal = (usersPhotos) => {
   photosContainer.addEventListener('click', (evt) => {
     const pictureEl = evt.target.closest('.picture');
     if (pictureEl) {
-      const clickedPhotoIndex = Number(pictureEl.getAttribute('data-photo-id'));
-      const clickedPhoto = usersPhotos.find((photo) => photo.id === clickedPhotoIndex);
+      const clickedPhotoId = Number(pictureEl.getAttribute('data-photo-id'));
+      const clickedPhoto = usersPhotos.find((photo) => photo.id === clickedPhotoId);
       openPhotoModal(clickedPhoto);
     }
   });
+  photoModalCloseButton.addEventListener('click', closePhotoModal);
 };
 
 // закрытие полномасштабного иображения
 
-const closePhotoModal = () => {
-  photoModal.classList.add('hidden');
+function closePhotoModal() {
+  photoModalElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   document.body.classList.remove('modal-open');
   socialComments.innerHTML = '';
-};
+}
 
-photoModalCloseButton.addEventListener('click', () => {
-  closePhotoModal();
-});
-
-export { onThumbnailClick };
+export { initializePhotoModal };
 
 

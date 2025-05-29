@@ -6,27 +6,27 @@ const photosContainer = document.querySelector('.pictures');
 const usersPhotosListFragment = document.createDocumentFragment();
 
 // полномасштабное изображение
-const photoModal = document.querySelector('.big-picture');
-const bigPictureImg = photoModal.querySelector('.big-picture__img img');
-const likesCount = photoModal.querySelector('.likes-count');
-const commentCountBlock = photoModal.querySelector('.social__comment-count');
-const commentTotalCount = photoModal.querySelector('.social__comment-total-count');
-const commentShownCount = photoModal.querySelector('.social__comment-shown-count');
-const socialComments = photoModal.querySelector('.social__comments');
-const commentsLoader = photoModal.querySelector('.comments-loader');
-const photoCaption = photoModal.querySelector('.social__caption');
+const photoModalElement = document.querySelector('.big-picture');
+const bigPictureImg = photoModalElement.querySelector('.big-picture__img img');
+const likesCount = photoModalElement.querySelector('.likes-count');
+const commentCountBlock = photoModalElement.querySelector('.social__comment-count');
+const commentTotalCount = photoModalElement.querySelector('.social__comment-total-count');
+const commentShownCount = photoModalElement.querySelector('.social__comment-shown-count');
+const socialComments = photoModalElement.querySelector('.social__comments');
+const commentsLoader = photoModalElement.querySelector('.comments-loader');
+const photoCaption = photoModalElement.querySelector('.social__caption');
 const commentTemplate = document.querySelector('#comment')
   .content
   .querySelector('.social__comment');
 const commentsListFragment = document.createDocumentFragment();
-const photoModalCloseButton = photoModal.querySelector('.big-picture__cancel');
+const photoModalCloseButton = photoModalElement.querySelector('.big-picture__cancel');
 
 
 export {
   photoTemplate,
   usersPhotosListFragment,
   photosContainer,
-  photoModal,
+  photoModalElement,
   bigPictureImg,
   likesCount,
   commentCountBlock,

@@ -3,7 +3,6 @@ import {
   usersPhotosListFragment,
   photosContainer
 } from './dom-elements.js';
-import { onThumbnailClick } from './photo-modal.js';
 
 const renderThumbnails = (usersPhotos) => {
   usersPhotos.forEach(({ id, url, description, likes, comments }) => {
@@ -16,7 +15,6 @@ const renderThumbnails = (usersPhotos) => {
     usersPhotosListFragment.appendChild(photoElement);
   });
   photosContainer.appendChild(usersPhotosListFragment);
-  onThumbnailClick(usersPhotos);
 };
 
 export { renderThumbnails };
