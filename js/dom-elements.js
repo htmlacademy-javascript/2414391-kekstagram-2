@@ -9,11 +9,12 @@ const usersPhotosListFragment = document.createDocumentFragment();
 const photoModalElement = document.querySelector('.big-picture');
 const bigPictureImg = photoModalElement.querySelector('.big-picture__img img');
 const likesCount = photoModalElement.querySelector('.likes-count');
-const commentCountBlock = photoModalElement.querySelector('.social__comment-count');
+const commentCountInfo = photoModalElement.querySelector('.social__comment-count-info');
 const commentTotalCount = photoModalElement.querySelector('.social__comment-total-count');
 const commentShownCount = photoModalElement.querySelector('.social__comment-shown-count');
+const noCommentsText = photoModalElement.querySelector('.social__no-comments-text');
 const socialComments = photoModalElement.querySelector('.social__comments');
-const commentsLoader = photoModalElement.querySelector('.comments-loader');
+const commentsLoaderButton = photoModalElement.querySelector('.comments-loader');
 const photoCaption = photoModalElement.querySelector('.social__caption');
 const commentTemplate = document.querySelector('#comment')
   .content
@@ -29,11 +30,12 @@ export {
   photoModalElement,
   bigPictureImg,
   likesCount,
-  commentCountBlock,
+  commentCountInfo,
   commentTotalCount,
   commentShownCount,
+  noCommentsText,
   socialComments,
-  commentsLoader,
+  commentsLoaderButton,
   photoCaption,
   commentTemplate,
   commentsListFragment,

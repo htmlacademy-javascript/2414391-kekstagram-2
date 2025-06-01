@@ -1,24 +1,34 @@
 import {
   photosContainer,
   photoModalElement,
-  commentsLoader,
   photoModalCloseButton,
   bigPictureImg,
   likesCount,
-  commentCountBlock,
   commentTotalCount,
   commentShownCount,
+  commentCountInfo,
+  noCommentsText,
   socialComments,
+  commentsLoaderButton,
   photoCaption,
   commentTemplate,
   commentsListFragment
 } from './dom-elements.js';
 import { isEscapeKey } from './utils/keyboard-utils.js';
+import { MAX_COMMENT_SHOWN_COUNT } from './constants.js';
 
-// отрисовка полномасштабного изображения
+let onCommentsLoaderButtonClick;
+let shownComments = 0;
 
-const renderCommentsList = (comments) => {
-  comments.forEach(({ avatar, message, name }) => {
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closePhotoModal();
+  }
+}
+
+const renderCommentsList = (partComments) => {
+  partComments.forEach(({ avatar, message, name }) => {
     const commentElement = commentTemplate.cloneNode(true);
     commentElement.querySelector('.social__picture').src = avatar;
     commentElement.querySelector('.social__picture').alt = name;
@@ -28,35 +38,39 @@ const renderCommentsList = (comments) => {
   socialComments.appendChild(commentsListFragment);
 };
 
-const renderPhotoModal = ({ url, likes, comments, description }) => {
-  const maxCommentShownCount = 5;
-  bigPictureImg.src = url;
-  likesCount.textContent = likes;
-  commentTotalCount.textContent = comments.length;
-  if (comments.length === 0) {
-    commentCountBlock.textContent = 'Нет комментариев';
-  } else {
-    commentShownCount.textContent = comments.length <= maxCommentShownCount ? comments.length : maxCommentShownCount;
+const showPartialComments = (comments) => {
+  commentsLoaderButton.classList.remove('hidden');
+  const partialComments = comments.slice(shownComments, shownComments + MAX_COMMENT_SHOWN_COUNT);
+  renderCommentsList(partialComments);
+  shownComments += partialComments.length;
+  commentShownCount.textContent = shownComments;
+  if (shownComments === comments.length) {
+    commentsLoaderButton.classList.add('hidden');
   }
-  photoCaption.textContent = description;
-  renderCommentsList(comments);
 };
 
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePhotoModal();
+const renderPhotoModal = ({ url, likes, comments, description }) => {
+  socialComments.innerHTML = '';
+  shownComments = 0;
+  bigPictureImg.src = url;
+  noCommentsText.classList.add('hidden');
+  commentCountInfo.classList.remove('hidden');
+  likesCount.textContent = likes;
+  photoCaption.textContent = description;
+  commentTotalCount.textContent = comments.length;
+  if (comments.length === 0) {
+    noCommentsText.classList.remove('hidden');
+    commentCountInfo.classList.add('hidden');
   }
-}
-
-//открытие полномасштабного изображения
+  onCommentsLoaderButtonClick = () => showPartialComments(comments);
+  commentsLoaderButton.addEventListener('click', onCommentsLoaderButtonClick);
+  showPartialComments(comments);
+};
 
 const openPhotoModal = (userPhoto) => {
   photoModalElement.classList.remove('hidden');
   renderPhotoModal(userPhoto);
   document.body.classList.add('modal-open');
-  commentCountBlock.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -72,15 +86,12 @@ const initializePhotoModal = (usersPhotos) => {
   photoModalCloseButton.addEventListener('click', closePhotoModal);
 };
 
-// закрытие полномасштабного иображения
-
 function closePhotoModal() {
   photoModalElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
   document.body.classList.remove('modal-open');
   socialComments.innerHTML = '';
 }
 
 export { initializePhotoModal };
-
-
