@@ -27,6 +27,8 @@ const uploadImgForm = document.querySelector('.img-upload__form');
 const imgUploadInput = uploadImgForm.querySelector('.img-upload__input');
 const imgUploadModalElement = uploadImgForm.querySelector('.img-upload__overlay');
 const imgUploadModalCloseButton = uploadImgForm.querySelector('.img-upload__cancel');
+const imgUploadSubmit = uploadImgForm.querySelector('.img-upload__submit');
+const textHashtagsInput = uploadImgForm.querySelector('.text__hashtags');
 
 export {
   photoTemplate,
@@ -48,5 +50,7 @@ export {
   uploadImgForm,
   imgUploadInput,
   imgUploadModalElement,
-  imgUploadModalCloseButton
+  imgUploadModalCloseButton,
+  imgUploadSubmit,
+  textHashtagsInput
 };
