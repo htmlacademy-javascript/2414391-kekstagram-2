@@ -14,18 +14,13 @@ import {
   commentTemplate,
   commentsListFragment
 } from './dom-elements.js';
-import { isEscapeKey } from './utils/keyboard-utils.js';
+import { onEscapeKeydown } from './utils/on-escape-keydown.js';
 import { MAX_COMMENT_SHOWN_COUNT } from './constants.js';
 
 let onCommentsLoaderButtonClick;
 let shownComments = 0;
 
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePhotoModal();
-  }
-}
+const onphotoModalEscKeydown = onEscapeKeydown(closePhotoModal);
 
 const renderCommentsList = (partComments) => {
   partComments.forEach(({ avatar, message, name }) => {
@@ -71,7 +66,7 @@ const openPhotoModal = (userPhoto) => {
   photoModalElement.classList.remove('hidden');
   renderPhotoModal(userPhoto);
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onphotoModalEscKeydown);
 };
 
 const initializePhotoModal = (usersPhotos) => {
@@ -88,7 +83,7 @@ const initializePhotoModal = (usersPhotos) => {
 
 function closePhotoModal() {
   photoModalElement.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onphotoModalEscKeydown);
   commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
   document.body.classList.remove('modal-open');
   socialComments.innerHTML = '';

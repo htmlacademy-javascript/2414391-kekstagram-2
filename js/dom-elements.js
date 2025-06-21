@@ -22,6 +22,14 @@ const commentTemplate = document.querySelector('#comment')
 const commentsListFragment = document.createDocumentFragment();
 const photoModalCloseButton = photoModalElement.querySelector('.big-picture__cancel');
 
+//форма загрузки изображения
+const uploadImgForm = document.querySelector('.img-upload__form');
+const imgUploadInput = uploadImgForm.querySelector('.img-upload__input');
+const imgUploadModalElement = uploadImgForm.querySelector('.img-upload__overlay');
+const imgUploadModalCloseButton = uploadImgForm.querySelector('.img-upload__cancel');
+const imgUploadSubmit = uploadImgForm.querySelector('.img-upload__submit');
+const textHashtagsInput = uploadImgForm.querySelector('.text__hashtags');
+const textDescriptionField = uploadImgForm.querySelector('.text__description');
 
 export {
   photoTemplate,
@@ -39,5 +47,12 @@ export {
   photoCaption,
   commentTemplate,
   commentsListFragment,
-  photoModalCloseButton
+  photoModalCloseButton,
+  uploadImgForm,
+  imgUploadInput,
+  imgUploadModalElement,
+  imgUploadModalCloseButton,
+  imgUploadSubmit,
+  textHashtagsInput,
+  textDescriptionField
 };
