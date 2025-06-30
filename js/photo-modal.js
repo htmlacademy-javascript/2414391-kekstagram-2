@@ -83,7 +83,7 @@ const initializePhotoModal = (usersPhotos) => {
 
 function closePhotoModal() {
   photoModalElement.classList.add('hidden');
-  document.removeEventListener('keydown', onphotoModalEscKeydown);
+  document.removeEventListener('keydown', onPhotoModalEscKeydown);
   commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
   document.body.classList.remove('modal-open');
   socialComments.innerHTML = '';
