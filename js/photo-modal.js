@@ -20,7 +20,7 @@ import { MAX_COMMENT_SHOWN_COUNT } from './constants.js';
 let onCommentsLoaderButtonClick;
 let shownComments = 0;
 
-const onphotoModalEscKeydown = onEscapeKeydown(closePhotoModal);
+const onPhotoModalEscKeydown = onEscapeKeydown(closePhotoModal);
 
 const renderCommentsList = (partComments) => {
   partComments.forEach(({ avatar, message, name }) => {
@@ -66,7 +66,7 @@ const openPhotoModal = (userPhoto) => {
   photoModalElement.classList.remove('hidden');
   renderPhotoModal(userPhoto);
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onphotoModalEscKeydown);
+  document.addEventListener('keydown', onPhotoModalEscKeydown);
 };
 
 const initializePhotoModal = (usersPhotos) => {
