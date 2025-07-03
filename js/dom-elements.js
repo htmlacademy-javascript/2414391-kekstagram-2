@@ -33,7 +33,12 @@ const textDescriptionField = uploadImgForm.querySelector('.text__description');
 const scaleControlSmallerButton = uploadImgForm.querySelector('.scale__control--smaller');
 const scaleControlBiggerButton = uploadImgForm.querySelector('.scale__control--bigger');
 const scaleControlValue = uploadImgForm.querySelector('.scale__control--value');
-const imgUploadPreview = uploadImgForm.querySelector('.img-upload__preview');
+const imgUploadPreview = uploadImgForm.querySelector('.img-upload__preview img');
+const effectLevelSliderElement = uploadImgForm.querySelector('.effect-level__slider');
+const effectsInputs = uploadImgForm.querySelectorAll('input[name="effect"]');
+const effectNoneInput = document.getElementById('effect-none');
+const effectLevelContainer = uploadImgForm.querySelector('.img-upload__effect-level');
+const effectLevelValueElement = uploadImgForm.querySelector('.effect-level__value');
 
 export {
   photoTemplate,
@@ -62,5 +67,10 @@ export {
   scaleControlSmallerButton,
   scaleControlBiggerButton,
   scaleControlValue,
-  imgUploadPreview
+  imgUploadPreview,
+  effectLevelSliderElement,
+  effectsInputs,
+  effectNoneInput,
+  effectLevelContainer,
+  effectLevelValueElement
 };
