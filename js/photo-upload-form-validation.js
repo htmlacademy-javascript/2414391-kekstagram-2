@@ -14,26 +14,31 @@ const onUploadImgFormSubmit = (evt) => {
 
 let validateHashtagsErrorMessage = '';
 
+const isValidHashtag = (hashtag) => /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
+
+const isEveryHashtagsValid = (hashtags) => hashtags.every(isValidHashtag);
+
+const areHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+
 const validateHashtags = (value) => {
   if (value.trim() === '') {
     return true;
   }
   const hashtagsArray = value.trim().toLowerCase().split(/\s+/);
+
   if (hashtagsArray.length > MAX_HASHTAGS_COUNT) {
     validateHashtagsErrorMessage = 'Превышено количество хэштегов';
     return false;
   }
-  const uniqueHashtags = new Set();
-  for (const hashtag of hashtagsArray) {
-    if (!/^#[a-zа-яё0-9]{1,19}$/.test(hashtag)) {
-      validateHashtagsErrorMessage = 'Введён невалидный хэштег';
-      return false;
-    }
-    if (uniqueHashtags.has(hashtag)) {
-      validateHashtagsErrorMessage = 'Хэштеги повторяются';
-      return false;
-    }
-    uniqueHashtags.add(hashtag);
+
+  if (!isEveryHashtagsValid(hashtagsArray)) {
+    validateHashtagsErrorMessage = 'Введён невалидный хэштег';
+    return false;
+  }
+
+  if (!areHashtagsUnique(hashtagsArray)) {
+    validateHashtagsErrorMessage = 'Хэштеги повторяются';
+    return false;
   }
   return true;
 };
