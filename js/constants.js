@@ -28,4 +28,19 @@ const MAX_COMMENT_SHOWN_COUNT = 5;
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_TEXT_DESCRIPTION_LETTERS = 140;
 
-export { PHOTO_DESCRIPTION_COUNT, PHOTO_DESCRIPTIONS, TEXT_MESSAGES, COMMENTATOR_NAMES, MAX_COMMENT_SHOWN_COUNT, MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS };
+const SCALE = {
+  STEP: 25,
+  MIN: 25,
+  MAX: 100
+};
+
+const EFFECT_SLIDER_VALUES = {
+  defaultEffect: { min: 0, max: 100, start: 0, step: 1 },
+  chrome: { min: 0, max: 1, start: 1, step: 0.1, filter: (value) => `grayscale(${value})` },
+  sepia: { min: 0, max: 1, start: 1, step: 0.1, filter: (value) => `sepia(${value})` },
+  marvin: { min: 0, max: 100, start: 100, step: 1, filter: (value) => `invert(${value}%)` },
+  phobos: { min: 0, max: 3, start: 3, step: 0.1, filter: (value) => `blur(${value}px)` },
+  heat: { min: 1, max: 3, start: 3, step: 0.1, filter: (value) => `brightness(${value})` },
+};
+
+export { PHOTO_DESCRIPTION_COUNT, PHOTO_DESCRIPTIONS, TEXT_MESSAGES, COMMENTATOR_NAMES, MAX_COMMENT_SHOWN_COUNT, MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS, SCALE, EFFECT_SLIDER_VALUES };

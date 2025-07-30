@@ -1,3 +1,4 @@
+import { SCALE, EFFECT_SLIDER_VALUES } from './constants.js';
 import {
   imgUploadInput,
   imgUploadModalElement,
@@ -41,6 +42,7 @@ function closePhotoUploadModal() {
   document.removeEventListener('submit', onUploadImgFormSubmit);
   document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
+  imgUploadPreview.removeAttribute('style');
 }
 
 const changePhotoScale = (scaleValue) => {
@@ -50,11 +52,11 @@ const changePhotoScale = (scaleValue) => {
 
 const increaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
-  if (currentScaleValue < 100) {
-    currentScaleValue += 25;
+  if (currentScaleValue < SCALE.MAX) {
+    currentScaleValue += SCALE.MIN;
   }
-  if (currentScaleValue > 100) {
-    currentScaleValue = 100;
+  if (currentScaleValue > SCALE.MAX) {
+    currentScaleValue = SCALE.MAX;
   }
 
   scaleControlValue.value = `${currentScaleValue}%`;
@@ -63,11 +65,11 @@ const increaseScaleControlValue = () => {
 
 const decreaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
-  if (currentScaleValue > 25) {
-    currentScaleValue -= 25;
+  if (currentScaleValue > SCALE.MIN) {
+    currentScaleValue -= SCALE.MIN;
   }
-  if (currentScaleValue < 25) {
-    currentScaleValue = 25;
+  if (currentScaleValue < SCALE.MIN) {
+    currentScaleValue = SCALE.MIN;
   }
 
   scaleControlValue.value = `${currentScaleValue}% `;
@@ -84,24 +86,19 @@ function initializePhotoScaleParams() {
 
 //slider
 
+const defaultEffect = EFFECT_SLIDER_VALUES.defaultEffect;
+
 noUiSlider.create(effectLevelSliderElement, {
-  start: 0,
+  start: defaultEffect.start,
   range: {
-    'min': 0,
-    'max': 100
+    min: defaultEffect.min,
+    max: defaultEffect.max
   },
-  step: 1,
+  step: defaultEffect.step,
   connect: 'lower',
   format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
+    to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
+    from: (value) => parseFloat(value)
   },
 });
 
@@ -122,45 +119,36 @@ const onEffectItemClick = (evt) => {
   }
   effectLevelContainer.style.display = 'block';
 
-  let updateFilter;
-  let startValue;
+  let effectSettings;
 
   switch (selectedEffect) {
     case 'chrome':
-      startValue = 1;
-      updateSlider(0, 1, startValue, 0.1);
-      updateFilter = (value) => `grayscale(${value})`;
+      effectSettings = EFFECT_SLIDER_VALUES.chrome;
       break;
     case 'sepia':
-      startValue = 1;
-      updateSlider(0, 1, startValue, 0.1);
-      updateFilter = (value) => `sepia(${value})`;
+      effectSettings = EFFECT_SLIDER_VALUES.sepia;
       break;
     case 'marvin':
-      startValue = 100;
-      updateSlider(0, 100, startValue, 1);
-      updateFilter = (value) => `invert(${value}%)`;
+      effectSettings = EFFECT_SLIDER_VALUES.marvin;
       break;
     case 'phobos':
-      startValue = 3;
-      updateSlider(0, 3, startValue, 0.1);
-      updateFilter = (value) => `blur(${value}px)`;
+      effectSettings = EFFECT_SLIDER_VALUES.phobos;
       break;
     case 'heat':
-      startValue = 3;
-      updateSlider(1, 3, startValue, 0.1);
-      updateFilter = (value) => `brightness(${value})`;
+      effectSettings = EFFECT_SLIDER_VALUES.heat;
       break;
   }
 
+  updateSlider(effectSettings.min, effectSettings.max, effectSettings.start, effectSettings.step);
+
   effectLevelSliderElement.noUiSlider.off('update');
-  effectLevelValueElement.value = startValue;
-  imgUploadPreview.style.filter = updateFilter(startValue);
+  effectLevelValueElement.value = effectSettings.start;
+  imgUploadPreview.style.filter = effectSettings.filter(effectSettings.start);
 
   effectLevelSliderElement.noUiSlider.on('update', () => {
     const value = effectLevelSliderElement.noUiSlider.get();
     effectLevelValueElement.value = value;
-    imgUploadPreview.style.filter = updateFilter(value);
+    imgUploadPreview.style.filter = effectSettings.filter(value);
   });
 };
 
