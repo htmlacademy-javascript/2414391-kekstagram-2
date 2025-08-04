@@ -7,11 +7,6 @@ const pristine = new Pristine(uploadImgForm, {
   errorTextClass: 'img-upload__field-wrapper--error'
 }, false);
 
-const onUploadImgFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-};
-
 let validateHashtagsErrorMessage = '';
 
 const isValidHashtag = (hashtag) => /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
@@ -52,4 +47,4 @@ const getCommentsErrorMessage = () => `Длина комментария бол�
 pristine.addValidator(textHashtagsInput, validateHashtags, getValidateHashtagsErrorMessage);
 pristine.addValidator(textDescriptionField, validateCommentField, getCommentsErrorMessage);
 
-export { onUploadImgFormSubmit };
+export { pristine };

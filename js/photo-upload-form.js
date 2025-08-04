@@ -1,8 +1,9 @@
-import { SCALE, EFFECT_SLIDER_VALUES } from './constants.js';
+import { SCALE, EffectSliderValues } from './constants.js';
 import {
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
+  imgUploadSubmit,
   scaleControlSmallerButton,
   scaleControlBiggerButton,
   scaleControlValue,
@@ -14,9 +15,32 @@ import {
   effectLevelValueElement
 } from './dom-elements.js';
 import { onEscapeKeydown } from './utils/on-escape-keydown.js';
-import { onUploadImgFormSubmit } from './photo-upload-form-validation.js';
+import { pristine } from './photo-upload-form-validation.js';
+import { sendData } from './api.js';
+import { showAlert } from './utils/show-alert.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
+
+const onUploadImgFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    imgUploadSubmit.disabled = true;
+    sendData(new FormData(evt.target))
+      .then(() => {
+        closePhotoUploadModal();
+        evt.target.reset();
+      })
+      .catch(
+        (err) => {
+          showAlert(err.message);
+        }
+      )
+      .finally(() => {
+        imgUploadSubmit.disabled = false;
+      });
+  }
+};
 
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
@@ -26,8 +50,6 @@ const initializePhotoUploadModal = () => {
 };
 
 function openPhotoUploadModal() {
-  scaleControlValue.value = '100%';
-  effectNoneInput.checked = true;
   imgUploadModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onphotoUploadModalEscKeydown);
@@ -42,7 +64,10 @@ function closePhotoUploadModal() {
   document.removeEventListener('submit', onUploadImgFormSubmit);
   document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
+  scaleControlValue.value = '100%';
+  effectNoneInput.checked = true;
   imgUploadPreview.removeAttribute('style');
+  pristine.reset();
 }
 
 const changePhotoScale = (scaleValue) => {
@@ -86,7 +111,7 @@ function initializePhotoScaleParams() {
 
 //slider
 
-const defaultEffect = EFFECT_SLIDER_VALUES.defaultEffect;
+const defaultEffect = EffectSliderValues.DEFAULT_EFFECT;
 
 noUiSlider.create(effectLevelSliderElement, {
   start: defaultEffect.start,
@@ -123,19 +148,19 @@ const onEffectItemClick = (evt) => {
 
   switch (selectedEffect) {
     case 'chrome':
-      effectSettings = EFFECT_SLIDER_VALUES.chrome;
+      effectSettings = EffectSliderValues.CHROME;
       break;
     case 'sepia':
-      effectSettings = EFFECT_SLIDER_VALUES.sepia;
+      effectSettings = EffectSliderValues.SEPIA;
       break;
     case 'marvin':
-      effectSettings = EFFECT_SLIDER_VALUES.marvin;
+      effectSettings = EffectSliderValues.MARVIN;
       break;
     case 'phobos':
-      effectSettings = EFFECT_SLIDER_VALUES.phobos;
+      effectSettings = EffectSliderValues.PHOBOS;
       break;
     case 'heat':
-      effectSettings = EFFECT_SLIDER_VALUES.heat;
+      effectSettings = EffectSliderValues.HEAT;
       break;
   }
 
