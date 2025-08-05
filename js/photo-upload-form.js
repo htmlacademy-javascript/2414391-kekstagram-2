@@ -1,4 +1,4 @@
-import { SCALE, EffectSliderValues } from './constants.js';
+import { SCALE, EffectSliderValues, MessageType } from './constants.js';
 import {
   imgUploadInput,
   imgUploadModalElement,
@@ -17,7 +17,7 @@ import {
 import { onEscapeKeydown } from './utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
 import { sendData } from './api.js';
-import { showAlert } from './utils/show-alert.js';
+import { showFormResult } from './form-result.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
@@ -29,12 +29,12 @@ const onUploadImgFormSubmit = (evt) => {
     sendData(new FormData(evt.target))
       .then(() => {
         closePhotoUploadModal();
+        showFormResult(MessageType.SUCCESS);
         evt.target.reset();
       })
-      .catch(
-        (err) => {
-          showAlert(err.message);
-        }
+      .catch(() => {
+        showFormResult(MessageType.ERROR);
+      }
       )
       .finally(() => {
         imgUploadSubmit.disabled = false;

@@ -1,7 +1,7 @@
 import { isEscapeKey } from './keyboard-utils.js';
 import { textHashtagsInput, textDescriptionField } from '../dom-elements.js';
 
-function onEscapeKeydown(closeModalFunction) {
+function onEscapeKeydown(closeFunction) {
   return function (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
@@ -9,7 +9,7 @@ function onEscapeKeydown(closeModalFunction) {
         evt.stopPropagation();
         return;
       }
-      closeModalFunction();
+      closeFunction();
     }
   };
 }

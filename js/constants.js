@@ -40,29 +40,34 @@ const EffectSliderValues = {
   SEPIA: { min: 0, max: 1, start: 1, step: 0.1, filter: (value) => `sepia(${value})` },
   MARVIN: { min: 0, max: 100, start: 100, step: 1, filter: (value) => `invert(${value}%)` },
   PHOBOS: { min: 0, max: 3, start: 3, step: 0.1, filter: (value) => `blur(${value}px)` },
-  HEAT: { min: 1, max: 3, start: 3, step: 0.1, filter: (value) => `brightness(${value})` },
+  HEAT: { min: 1, max: 3, start: 3, step: 0.1, filter: (value) => `brightness(${value})` }
 };
 
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '/',
+  SEND_DATA: '/'
 };
 
 const Method = {
   GET: 'GET',
-  POST: 'POST',
+  POST: 'POST'
 };
 
 const ErrorText = {
   GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить страницу',
-  SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
+  SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз'
 };
 
 const SUCCESS_MESSAGE = 'Форма отправлена';
 
 const ALERT_SHOW_TIME = 5000;
+
+const MessageType = {
+  ERROR: 'error',
+  SUCCESS: 'success'
+};
 
 export {
   PHOTO_DESCRIPTION_COUNT,
@@ -78,5 +83,6 @@ export {
   Method,
   ErrorText,
   SUCCESS_MESSAGE,
-  ALERT_SHOW_TIME
+  ALERT_SHOW_TIME,
+  MessageType
 };

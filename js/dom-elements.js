@@ -44,12 +44,6 @@ const effectLevelValueElement = uploadImgForm.querySelector('.effect-level__valu
 const dataErrorTemplate = document.querySelector('#data-error')
   .content
   .querySelector('.data-error');
-const errorMessageTemplate = document.querySelector('#error')
-  .content
-  .querySelector('.error');
-const successMessageTemplate = document.querySelector('#success')
-  .content
-  .querySelector('.success');
 
 export {
   photoTemplate,
@@ -84,7 +78,5 @@ export {
   effectNoneInput,
   effectLevelContainer,
   effectLevelValueElement,
-  dataErrorTemplate,
-  errorMessageTemplate,
-  successMessageTemplate
+  dataErrorTemplate
 };
