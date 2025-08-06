@@ -1,5 +1,5 @@
-import { uploadImgForm, textHashtagsInput, textDescriptionField } from './dom-elements.js';
-import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from './constants.js';
+import { uploadImgForm, textHashtagsInput, textDescriptionField } from '../dom-elements.js';
+import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from '../constants.js';
 
 const pristine = new Pristine(uploadImgForm, {
   classTo: 'img-upload__field-wrapper',
