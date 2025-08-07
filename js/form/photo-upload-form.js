@@ -17,7 +17,7 @@ import {
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
 import { sendData } from '../api.js';
-import { showFormResultModal } from './form-result.js';
+import { showFormResultModal } from './form-result-modal.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
