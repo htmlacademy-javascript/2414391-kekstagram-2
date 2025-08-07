@@ -40,6 +40,11 @@ const effectNoneInput = document.getElementById('effect-none');
 const effectLevelContainer = uploadImgForm.querySelector('.img-upload__effect-level');
 const effectLevelValueElement = uploadImgForm.querySelector('.effect-level__value');
 
+// отправка/получение данных с сервера
+const dataErrorTemplate = document.querySelector('#data-error')
+  .content
+  .querySelector('.data-error');
+
 export {
   photoTemplate,
   usersPhotosListFragment,
@@ -72,5 +77,6 @@ export {
   effectsInputs,
   effectNoneInput,
   effectLevelContainer,
-  effectLevelValueElement
+  effectLevelValueElement,
+  dataErrorTemplate
 };

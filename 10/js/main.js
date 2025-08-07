@@ -1,10 +1,19 @@
-import { createPhotosDescriptions } from './data-generators/photos-descriptions.js';
 import { initializePhotoModal } from './photo-modal.js';
 import { renderThumbnails } from './render-thumbnails.js';
-import { initializePhotoUploadModal } from './photo-upload-form.js';
+import { initializePhotoUploadModal } from './form/photo-upload-form.js';
+import { getData } from './api.js';
+import { showAlert } from './utils/show-alert.js';
 
-const usersPhotos = createPhotosDescriptions();
 
-initializePhotoModal(usersPhotos);
-renderThumbnails(usersPhotos);
 initializePhotoUploadModal();
+
+getData()
+  .then((photos) => {
+    renderThumbnails(photos);
+    initializePhotoModal(photos);
+  })
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
