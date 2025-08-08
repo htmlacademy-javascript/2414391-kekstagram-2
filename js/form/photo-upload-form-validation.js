@@ -1,16 +1,11 @@
-import { uploadImgForm, textHashtagsInput, textDescriptionField } from './dom-elements.js';
-import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from './constants.js';
+import { uploadImgForm, textHashtagsInput, textDescriptionField } from '../dom-elements.js';
+import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from '../constants.js';
 
 const pristine = new Pristine(uploadImgForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
 }, false);
-
-const onUploadImgFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-};
 
 let validateHashtagsErrorMessage = '';
 
@@ -52,4 +47,4 @@ const getCommentsErrorMessage = () => `Длина комментария бол�
 pristine.addValidator(textHashtagsInput, validateHashtags, getValidateHashtagsErrorMessage);
 pristine.addValidator(textDescriptionField, validateCommentField, getCommentsErrorMessage);
 
-export { onUploadImgFormSubmit };
+export { pristine };

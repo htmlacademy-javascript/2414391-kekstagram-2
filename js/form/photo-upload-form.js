@@ -1,7 +1,9 @@
+import { SCALE, EffectSliderValues, MessageType } from '../constants.js';
 import {
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
+  imgUploadSubmit,
   scaleControlSmallerButton,
   scaleControlBiggerButton,
   scaleControlValue,
@@ -11,11 +13,34 @@ import {
   effectNoneInput,
   effectLevelContainer,
   effectLevelValueElement
-} from './dom-elements.js';
-import { onEscapeKeydown } from './utils/on-escape-keydown.js';
-import { onUploadImgFormSubmit } from './photo-upload-form-validation.js';
+} from '../dom-elements.js';
+import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
+import { pristine } from './photo-upload-form-validation.js';
+import { sendData } from '../api.js';
+import { showFormResultModal } from './form-result-modal.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
+
+const onUploadImgFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    imgUploadSubmit.disabled = true;
+    sendData(new FormData(evt.target))
+      .then(() => {
+        closePhotoUploadModal();
+        showFormResultModal(MessageType.SUCCESS);
+        evt.target.reset();
+      })
+      .catch(() => {
+        showFormResultModal(MessageType.ERROR);
+      }
+      )
+      .finally(() => {
+        imgUploadSubmit.disabled = false;
+      });
+  }
+};
 
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
@@ -25,8 +50,6 @@ const initializePhotoUploadModal = () => {
 };
 
 function openPhotoUploadModal() {
-  scaleControlValue.value = '100%';
-  effectNoneInput.checked = true;
   imgUploadModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onphotoUploadModalEscKeydown);
@@ -41,6 +64,10 @@ function closePhotoUploadModal() {
   document.removeEventListener('submit', onUploadImgFormSubmit);
   document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
+  scaleControlValue.value = '100%';
+  effectNoneInput.checked = true;
+  imgUploadPreview.removeAttribute('style');
+  pristine.reset();
 }
 
 const changePhotoScale = (scaleValue) => {
@@ -50,11 +77,11 @@ const changePhotoScale = (scaleValue) => {
 
 const increaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
-  if (currentScaleValue < 100) {
-    currentScaleValue += 25;
+  if (currentScaleValue < SCALE.MAX) {
+    currentScaleValue += SCALE.MIN;
   }
-  if (currentScaleValue > 100) {
-    currentScaleValue = 100;
+  if (currentScaleValue > SCALE.MAX) {
+    currentScaleValue = SCALE.MAX;
   }
 
   scaleControlValue.value = `${currentScaleValue}%`;
@@ -63,11 +90,11 @@ const increaseScaleControlValue = () => {
 
 const decreaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
-  if (currentScaleValue > 25) {
-    currentScaleValue -= 25;
+  if (currentScaleValue > SCALE.MIN) {
+    currentScaleValue -= SCALE.MIN;
   }
-  if (currentScaleValue < 25) {
-    currentScaleValue = 25;
+  if (currentScaleValue < SCALE.MIN) {
+    currentScaleValue = SCALE.MIN;
   }
 
   scaleControlValue.value = `${currentScaleValue}% `;
@@ -84,24 +111,19 @@ function initializePhotoScaleParams() {
 
 //slider
 
+const defaultEffect = EffectSliderValues.DEFAULT_EFFECT;
+
 noUiSlider.create(effectLevelSliderElement, {
-  start: 0,
+  start: defaultEffect.start,
   range: {
-    'min': 0,
-    'max': 100
+    min: defaultEffect.min,
+    max: defaultEffect.max
   },
-  step: 1,
+  step: defaultEffect.step,
   connect: 'lower',
   format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
+    to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
+    from: (value) => parseFloat(value)
   },
 });
 
@@ -122,45 +144,36 @@ const onEffectItemClick = (evt) => {
   }
   effectLevelContainer.style.display = 'block';
 
-  let updateFilter;
-  let startValue;
+  let effectSettings;
 
   switch (selectedEffect) {
     case 'chrome':
-      startValue = 1;
-      updateSlider(0, 1, startValue, 0.1);
-      updateFilter = (value) => `grayscale(${value})`;
+      effectSettings = EffectSliderValues.CHROME;
       break;
     case 'sepia':
-      startValue = 1;
-      updateSlider(0, 1, startValue, 0.1);
-      updateFilter = (value) => `sepia(${value})`;
+      effectSettings = EffectSliderValues.SEPIA;
       break;
     case 'marvin':
-      startValue = 100;
-      updateSlider(0, 100, startValue, 1);
-      updateFilter = (value) => `invert(${value}%)`;
+      effectSettings = EffectSliderValues.MARVIN;
       break;
     case 'phobos':
-      startValue = 3;
-      updateSlider(0, 3, startValue, 0.1);
-      updateFilter = (value) => `blur(${value}px)`;
+      effectSettings = EffectSliderValues.PHOBOS;
       break;
     case 'heat':
-      startValue = 3;
-      updateSlider(1, 3, startValue, 0.1);
-      updateFilter = (value) => `brightness(${value})`;
+      effectSettings = EffectSliderValues.HEAT;
       break;
   }
 
+  updateSlider(effectSettings.min, effectSettings.max, effectSettings.start, effectSettings.step);
+
   effectLevelSliderElement.noUiSlider.off('update');
-  effectLevelValueElement.value = startValue;
-  imgUploadPreview.style.filter = updateFilter(startValue);
+  effectLevelValueElement.value = effectSettings.start;
+  imgUploadPreview.style.filter = effectSettings.filter(effectSettings.start);
 
   effectLevelSliderElement.noUiSlider.on('update', () => {
     const value = effectLevelSliderElement.noUiSlider.get();
     effectLevelValueElement.value = value;
-    imgUploadPreview.style.filter = updateFilter(value);
+    imgUploadPreview.style.filter = effectSettings.filter(value);
   });
 };
 
