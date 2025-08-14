@@ -16,7 +16,7 @@ import {
 } from '../dom-elements.js';
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
-import { sendData } from '../api.js';
+import { sendForm } from '../api.js';
 import { showFormResultModal } from './form-result-modal.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
@@ -26,7 +26,7 @@ const onUploadImgFormSubmit = (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     imgUploadSubmit.disabled = true;
-    sendData(new FormData(evt.target))
+    sendForm(new FormData(evt.target))
       .then(() => {
         closePhotoUploadModal();
         showFormResultModal(MessageType.SUCCESS);
@@ -34,8 +34,7 @@ const onUploadImgFormSubmit = (evt) => {
       })
       .catch(() => {
         showFormResultModal(MessageType.ERROR);
-      }
-      )
+      })
       .finally(() => {
         imgUploadSubmit.disabled = false;
       });
