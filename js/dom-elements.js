@@ -27,7 +27,7 @@ const uploadImgForm = document.querySelector('.img-upload__form');
 const imgUploadInput = uploadImgForm.querySelector('.img-upload__input');
 const imgUploadModalElement = uploadImgForm.querySelector('.img-upload__overlay');
 const imgUploadModalCloseButton = uploadImgForm.querySelector('.img-upload__cancel');
-const imgUploadSubmit = uploadImgForm.querySelector('.img-upload__submit');
+const imgUploadButton = uploadImgForm.querySelector('.img-upload__submit');
 const textHashtagsInput = uploadImgForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadImgForm.querySelector('.text__description');
 const scaleControlSmallerButton = uploadImgForm.querySelector('.scale__control--smaller');
@@ -66,7 +66,7 @@ export {
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
-  imgUploadSubmit,
+  imgUploadButton,
   textHashtagsInput,
   textDescriptionField,
   scaleControlSmallerButton,

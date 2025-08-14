@@ -1,9 +1,9 @@
-import { SCALE, EffectSliderValues, MessageType } from '../constants.js';
+import { SCALE, EffectSliderValues, MessageType, SubmitButtonText } from '../constants.js';
 import {
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
-  imgUploadSubmit,
+  imgUploadButton,
   scaleControlSmallerButton,
   scaleControlBiggerButton,
   scaleControlValue,
@@ -25,7 +25,7 @@ const onUploadImgFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    imgUploadSubmit.disabled = true;
+    setButtonState(false, SubmitButtonText.SENDING);
     sendForm(new FormData(evt.target))
       .then(() => {
         closePhotoUploadModal();
@@ -36,7 +36,7 @@ const onUploadImgFormSubmit = (evt) => {
         showFormResultModal(MessageType.ERROR);
       })
       .finally(() => {
-        imgUploadSubmit.disabled = false;
+        setButtonState(true, SubmitButtonText.IDLE);
       });
   }
 };
@@ -67,6 +67,11 @@ function closePhotoUploadModal() {
   effectNoneInput.checked = true;
   imgUploadPreview.removeAttribute('style');
   pristine.reset();
+}
+
+function setButtonState(isEnabled, text) {
+  imgUploadButton.disabled = !isEnabled;
+  imgUploadButton.textContent = text;
 }
 
 const changePhotoScale = (scaleValue) => {

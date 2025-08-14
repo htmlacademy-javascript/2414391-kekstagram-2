@@ -69,6 +69,11 @@ const MessageType = {
   SUCCESS: 'success'
 };
 
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
 export {
   PHOTO_DESCRIPTION_COUNT,
   PHOTO_DESCRIPTIONS,
@@ -84,5 +89,6 @@ export {
   ErrorText,
   SUCCESS_MESSAGE,
   ALERT_SHOW_TIME,
-  MessageType
+  MessageType,
+  SubmitButtonText
 };
