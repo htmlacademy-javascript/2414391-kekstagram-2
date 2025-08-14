@@ -74,6 +74,8 @@ const SubmitButtonText = {
   SENDING: 'Сохраняю...'
 };
 
+const randomPhotosCount = 10;
+
 export {
   PHOTO_DESCRIPTION_COUNT,
   PHOTO_DESCRIPTIONS,
@@ -90,5 +92,6 @@ export {
   SUCCESS_MESSAGE,
   ALERT_SHOW_TIME,
   MessageType,
-  SubmitButtonText
+  SubmitButtonText,
+  randomPhotosCount
 };

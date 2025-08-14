@@ -1,7 +1,7 @@
-import { uploadImgForm, textHashtagsInput, textDescriptionField } from '../dom-elements.js';
+import { imgUploadForm, textHashtagsInput, textDescriptionField } from '../dom-elements.js';
 import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from '../constants.js';
 
-const pristine = new Pristine(uploadImgForm, {
+const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'

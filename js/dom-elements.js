@@ -45,6 +45,13 @@ const dataErrorTemplate = document.querySelector('#data-error')
   .content
   .querySelector('.data-error');
 
+//фильтрация изображений
+const imgFiltersContainer = document.querySelector('.img-filters');
+const filtersButton = imgFiltersContainer.querySelector('.img-filters__button');
+const filterDefaultButton = imgFiltersContainer.querySelector('#filter-default');
+const filterRandomButton = imgFiltersContainer.querySelector('#filter-random');
+const filterDiscussedButton = imgFiltersContainer.querySelector('#filter-discussed');
+
 export {
   photoTemplate,
   usersPhotosListFragment,
@@ -78,5 +85,10 @@ export {
   effectNoneInput,
   effectLevelContainer,
   effectLevelValueElement,
-  dataErrorTemplate
+  dataErrorTemplate,
+  imgFiltersContainer,
+  filtersButton,
+  filterDefaultButton,
+  filterRandomButton,
+  filterDiscussedButton
 };
