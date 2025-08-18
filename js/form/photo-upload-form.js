@@ -19,6 +19,7 @@ import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
 import { sendForm } from '../api.js';
 import { showFormResultModal } from './form-result-modal.js';
+import { showPhotoPreview } from './show-photo-preview.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
@@ -47,9 +48,11 @@ const onFormButtonClick = (evt) => {
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
     openPhotoUploadModal();
+    showPhotoPreview();
   });
   imgUploadModalCloseButton.addEventListener('click', closePhotoUploadModal);
 };
+
 
 function openPhotoUploadModal() {
   imgUploadModalElement.classList.remove('hidden');
