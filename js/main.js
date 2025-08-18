@@ -1,9 +1,9 @@
-import { initializePhotoModal } from './photo-modal.js';
-import { renderThumbnails } from './render-thumbnails.js';
-import { initializePhotoUploadModal } from './form/photo-upload-form.js';
+import { initializePhotoModal } from './thumbnails/initialize-photo-modal.js';
+import { renderThumbnails } from './thumbnails/render-thumbnails.js';
+import { initializePhotoUploadModal } from './form/initialize-photo-upload-modal.js';
 import { getData } from './api.js';
 import { showAlert } from './utils/show-alert.js';
-import { openFilterManager, addFilterHandlers } from './filter-thumbnails.js';
+import { openFilterManager, addFilterHandlers } from './thumbnails/filter-thumbnails.js';
 
 
 const getThumbs = async () => {
@@ -20,3 +20,4 @@ const getThumbs = async () => {
 
 getThumbs();
 initializePhotoUploadModal();
+

@@ -4,11 +4,11 @@ import {
   filterDefaultButton,
   filterRandomButton,
   filterDiscussedButton
-} from './dom-elements.js';
+} from '../dom-elements.js';
 import { renderThumbnails } from './render-thumbnails.js';
-import { getRandomData } from './utils/random.js';
-import { RANDOM_PHOTOS_COUNT, RERENDER_DELAY } from './constants.js';
-import { debounce } from './utils/debounce.js';
+import { getRandomData } from '../utils/random.js';
+import { RANDOM_PHOTOS_COUNT, RERENDER_DELAY } from '../constants.js';
+import { debounce } from '../utils/debounce.js';
 
 const openFilterManager = () => {
   imgFiltersContainer.classList.remove('img-filters--inactive');
