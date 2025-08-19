@@ -27,7 +27,7 @@ const getRandomArrayElement = (array) => {
   return array[randomIndex];
 };
 
-function getRandomData(data, count) {
+const getRandomData = (data, count) => {
   const randomData = new Set();
 
   while (randomData.size < count) {
@@ -35,6 +35,6 @@ function getRandomData(data, count) {
     randomData.add(data[randomIndex]);
   }
   return Array.from(randomData);
-}
+};
 
 export { getRandomInteger, createRandomNumberFromRangeGenerator, getRandomArrayElement, getRandomData };

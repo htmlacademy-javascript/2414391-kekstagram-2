@@ -19,28 +19,6 @@ import { addPhotoEffect } from './add-photo-effects.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
-const sendFormData = async (formElement) => {
-  const isValid = pristine.validate();
-  if (isValid) {
-    setButtonState(false, SubmitButtonText.SENDING);
-    try {
-      sendForm(new FormData(formElement));
-      closePhotoUploadModal();
-      showFormResultModal(MessageType.SUCCESS);
-      formElement.reset();
-    } catch {
-      showFormResultModal(MessageType.ERROR);
-    } finally {
-      setButtonState(true, SubmitButtonText.IDLE);
-    }
-  }
-};
-
-const onFormButtonClick = (evt) => {
-  evt.preventDefault();
-  sendFormData(evt.target);
-};
-
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
     openPhotoUploadModal();
@@ -55,6 +33,16 @@ const resetUploadForm = () => {
   effectNoneInput.checked = true;
   imgUploadPreview.removeAttribute('style');
   pristine.reset();
+};
+
+const setButtonState = (isEnabled, text) => {
+  imgUploadButton.disabled = !isEnabled;
+  imgUploadButton.textContent = text;
+};
+
+const onFormButtonClick = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 function openPhotoUploadModal() {
@@ -78,9 +66,21 @@ function closePhotoUploadModal() {
   imgUploadForm.removeEventListener('submit', onFormButtonClick);
 }
 
-function setButtonState(isEnabled, text) {
-  imgUploadButton.disabled = !isEnabled;
-  imgUploadButton.textContent = text;
+async function sendFormData(formElement) {
+  const isValid = pristine.validate();
+  if (isValid) {
+    setButtonState(false, SubmitButtonText.SENDING);
+    try {
+      await sendForm(new FormData(formElement));
+      closePhotoUploadModal();
+      showFormResultModal(MessageType.SUCCESS);
+      formElement.reset();
+    } catch {
+      showFormResultModal(MessageType.ERROR);
+    } finally {
+      setButtonState(true, SubmitButtonText.IDLE);
+    }
+  }
 }
 
 export { initializePhotoUploadModal };
