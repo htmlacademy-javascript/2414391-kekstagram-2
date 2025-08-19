@@ -1,11 +1,6 @@
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 
-function showFormResultModal(type) {
-  const elements = createFormResultModal(type);
-  addModalEventListeners(elements);
-}
-
-function createFormResultModal(type) {
+const createFormResultModal = (type) => {
   const templateType = type === 'success' ? '#success' : '#error';
   const messageTemplate = document.querySelector(templateType)
     .content
@@ -19,11 +14,21 @@ function createFormResultModal(type) {
   const buttonElement = messageElement.querySelector(`.${type}__button`);
 
   return { messageElement, innerElement, buttonElement };
-}
+};
 
-function addModalEventListeners({ buttonElement, innerElement, messageElement }) {
+const closeFormResultModal = (element, handlers) => {
+  element.remove();
+  document.removeEventListener('keydown', handlers.onFormResultEscapeKeydown);
+  document.removeEventListener('click', handlers.onOutsideClick);
+};
 
-  const handlers = {
+const addModalEventListeners = ({ buttonElement, innerElement, messageElement }) => {
+
+  let handlers = {};
+
+  const closeModal = () => closeFormResultModal(messageElement, handlers);
+
+  handlers = {
     onFormResultEscapeKeydown: onEscapeKeydown(closeModal),
     onOutsideClick: (evt) => {
       if (!innerElement.contains(evt.target)) {
@@ -33,19 +38,15 @@ function addModalEventListeners({ buttonElement, innerElement, messageElement })
     onButtonClick: () => closeModal()
   };
 
-  function closeModal() {
-    closeFormResultModal(messageElement, handlers);
-  }
-
   buttonElement.addEventListener('click', handlers.onButtonClick);
   document.body.addEventListener('keydown', handlers.onFormResultEscapeKeydown);
   document.body.addEventListener('click', handlers.onOutsideClick);
 
-}
-function closeFormResultModal(element, handlers) {
-  element.remove();
-  document.removeEventListener('keydown', handlers.onFormResultEscapeKeydown);
-  document.removeEventListener('click', handlers.onOutsideClick);
-}
+};
+
+const showFormResultModal = (type) => {
+  const elements = createFormResultModal(type);
+  addModalEventListeners(elements);
+};
 
 export { showFormResultModal };

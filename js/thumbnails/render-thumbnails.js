@@ -2,7 +2,7 @@ import {
   photoTemplate,
   usersPhotosListFragment,
   photosContainer
-} from './dom-elements.js';
+} from '../dom-elements.js';
 
 const renderThumbnails = (usersPhotos) => {
   usersPhotos.forEach(({ id, url, description, likes, comments }) => {
