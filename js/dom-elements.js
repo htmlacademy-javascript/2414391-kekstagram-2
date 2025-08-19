@@ -23,27 +23,34 @@ const commentsListFragment = document.createDocumentFragment();
 const photoModalCloseButton = photoModalElement.querySelector('.big-picture__cancel');
 
 //форма загрузки изображения
-const uploadImgForm = document.querySelector('.img-upload__form');
-const imgUploadInput = uploadImgForm.querySelector('.img-upload__input');
-const imgUploadModalElement = uploadImgForm.querySelector('.img-upload__overlay');
-const imgUploadModalCloseButton = uploadImgForm.querySelector('.img-upload__cancel');
-const imgUploadSubmit = uploadImgForm.querySelector('.img-upload__submit');
-const textHashtagsInput = uploadImgForm.querySelector('.text__hashtags');
-const textDescriptionField = uploadImgForm.querySelector('.text__description');
-const scaleControlSmallerButton = uploadImgForm.querySelector('.scale__control--smaller');
-const scaleControlBiggerButton = uploadImgForm.querySelector('.scale__control--bigger');
-const scaleControlValue = uploadImgForm.querySelector('.scale__control--value');
-const imgUploadPreview = uploadImgForm.querySelector('.img-upload__preview img');
-const effectLevelSliderElement = uploadImgForm.querySelector('.effect-level__slider');
-const effectsInputs = uploadImgForm.querySelectorAll('input[name="effect"]');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const imgUploadInput = imgUploadForm.querySelector('.img-upload__input');
+const imgUploadModalElement = imgUploadForm.querySelector('.img-upload__overlay');
+const imgUploadModalCloseButton = imgUploadForm.querySelector('.img-upload__cancel');
+const imgUploadButton = imgUploadForm.querySelector('.img-upload__submit');
+const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
+const textDescriptionField = imgUploadForm.querySelector('.text__description');
+const scaleControlSmallerButton = imgUploadForm.querySelector('.scale__control--smaller');
+const scaleControlBiggerButton = imgUploadForm.querySelector('.scale__control--bigger');
+const scaleControlValue = imgUploadForm.querySelector('.scale__control--value');
+const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
+const effectLevelSliderElement = imgUploadForm.querySelector('.effect-level__slider');
+const effectsInputs = imgUploadForm.querySelectorAll('input[name="effect"]');
 const effectNoneInput = document.getElementById('effect-none');
-const effectLevelContainer = uploadImgForm.querySelector('.img-upload__effect-level');
-const effectLevelValueElement = uploadImgForm.querySelector('.effect-level__value');
+const effectLevelContainer = imgUploadForm.querySelector('.img-upload__effect-level');
+const effectLevelValueElement = imgUploadForm.querySelector('.effect-level__value');
 
 // отправка/получение данных с сервера
 const dataErrorTemplate = document.querySelector('#data-error')
   .content
   .querySelector('.data-error');
+
+//фильтрация изображений
+const imgFiltersContainer = document.querySelector('.img-filters');
+const filtersButton = imgFiltersContainer.querySelector('.img-filters__button');
+const filterDefaultButton = imgFiltersContainer.querySelector('#filter-default');
+const filterRandomButton = imgFiltersContainer.querySelector('#filter-random');
+const filterDiscussedButton = imgFiltersContainer.querySelector('#filter-discussed');
 
 export {
   photoTemplate,
@@ -62,11 +69,11 @@ export {
   commentTemplate,
   commentsListFragment,
   photoModalCloseButton,
-  uploadImgForm,
+  imgUploadForm,
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
-  imgUploadSubmit,
+  imgUploadButton,
   textHashtagsInput,
   textDescriptionField,
   scaleControlSmallerButton,
@@ -78,5 +85,10 @@ export {
   effectNoneInput,
   effectLevelContainer,
   effectLevelValueElement,
-  dataErrorTemplate
+  dataErrorTemplate,
+  imgFiltersContainer,
+  filtersButton,
+  filterDefaultButton,
+  filterRandomButton,
+  filterDiscussedButton
 };

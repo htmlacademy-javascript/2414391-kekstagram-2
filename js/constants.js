@@ -69,6 +69,15 @@ const MessageType = {
   SUCCESS: 'success'
 };
 
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
+const RANDOM_PHOTOS_COUNT = 10;
+
+const RERENDER_DELAY = 500;
+
 export {
   PHOTO_DESCRIPTION_COUNT,
   PHOTO_DESCRIPTIONS,
@@ -84,5 +93,8 @@ export {
   ErrorText,
   SUCCESS_MESSAGE,
   ALERT_SHOW_TIME,
-  MessageType
+  MessageType,
+  SubmitButtonText,
+  RANDOM_PHOTOS_COUNT,
+  RERENDER_DELAY
 };

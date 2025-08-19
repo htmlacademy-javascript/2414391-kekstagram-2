@@ -1,9 +1,10 @@
-import { SCALE, EffectSliderValues, MessageType } from '../constants.js';
+import { SCALE, EffectSliderValues, MessageType, SubmitButtonText } from '../constants.js';
 import {
+  imgUploadForm,
   imgUploadInput,
   imgUploadModalElement,
   imgUploadModalCloseButton,
-  imgUploadSubmit,
+  imgUploadButton,
   scaleControlSmallerButton,
   scaleControlBiggerButton,
   scaleControlValue,
@@ -16,30 +17,31 @@ import {
 } from '../dom-elements.js';
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
-import { sendData } from '../api.js';
+import { sendForm } from '../api.js';
 import { showFormResultModal } from './form-result-modal.js';
 
 const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
-const onUploadImgFormSubmit = (evt) => {
-  evt.preventDefault();
+const sendFormData = async (formElement) => {
   const isValid = pristine.validate();
   if (isValid) {
-    imgUploadSubmit.disabled = true;
-    sendData(new FormData(evt.target))
-      .then(() => {
-        closePhotoUploadModal();
-        showFormResultModal(MessageType.SUCCESS);
-        evt.target.reset();
-      })
-      .catch(() => {
-        showFormResultModal(MessageType.ERROR);
-      }
-      )
-      .finally(() => {
-        imgUploadSubmit.disabled = false;
-      });
+    setButtonState(false, SubmitButtonText.SENDING);
+    try {
+      sendForm(new FormData(formElement));
+      closePhotoUploadModal();
+      showFormResultModal(MessageType.SUCCESS);
+      formElement.reset();
+    } catch {
+      showFormResultModal(MessageType.ERROR);
+    } finally {
+      setButtonState(true, SubmitButtonText.IDLE);
+    }
   }
+};
+
+const onFormButtonClick = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 const initializePhotoUploadModal = () => {
@@ -53,7 +55,7 @@ function openPhotoUploadModal() {
   imgUploadModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onphotoUploadModalEscKeydown);
-  document.addEventListener('submit', onUploadImgFormSubmit);
+  imgUploadForm.addEventListener('submit', onFormButtonClick);
   initializePhotoScaleParams();
   addPhotoEffect();
 }
@@ -61,13 +63,18 @@ function openPhotoUploadModal() {
 function closePhotoUploadModal() {
   imgUploadModalElement.classList.add('hidden');
   document.removeEventListener('keydown', onphotoUploadModalEscKeydown);
-  document.removeEventListener('submit', onUploadImgFormSubmit);
+  imgUploadForm.removeEventListener('submit', onFormButtonClick);
   document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
   scaleControlValue.value = '100%';
   effectNoneInput.checked = true;
   imgUploadPreview.removeAttribute('style');
   pristine.reset();
+}
+
+function setButtonState(isEnabled, text) {
+  imgUploadButton.disabled = !isEnabled;
+  imgUploadButton.textContent = text;
 }
 
 const changePhotoScale = (scaleValue) => {

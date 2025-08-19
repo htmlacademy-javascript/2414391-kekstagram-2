@@ -3,17 +3,20 @@ import { renderThumbnails } from './render-thumbnails.js';
 import { initializePhotoUploadModal } from './form/photo-upload-form.js';
 import { getData } from './api.js';
 import { showAlert } from './utils/show-alert.js';
+import { openFilterManager, addFilterHandlers } from './filter-thumbnails.js';
 
 
-initializePhotoUploadModal();
-
-getData()
-  .then((photos) => {
+const getThumbs = async () => {
+  try {
+    const photos = await getData();
     renderThumbnails(photos);
+    openFilterManager();
+    addFilterHandlers(photos);
     initializePhotoModal(photos);
-  })
-  .catch(
-    (err) => {
-      showAlert(err.message);
-    }
-  );
+  } catch (error) {
+    showAlert(error.message);
+  }
+};
+
+getThumbs();
+initializePhotoUploadModal();
