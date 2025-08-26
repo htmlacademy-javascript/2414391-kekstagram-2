@@ -34,7 +34,7 @@ const decreaseScaleControlValue = () => {
     currentScaleValue = SCALE.MIN;
   }
 
-  scaleControlValue.value = `${currentScaleValue}% `;
+  scaleControlValue.value = `${currentScaleValue}%`;
   changePhotoScale(scaleControlValue);
 };
 

@@ -24,24 +24,21 @@ const closeFormResultModal = (element, handlers) => {
 
 const addModalEventListeners = ({ buttonElement, innerElement, messageElement }) => {
 
-  let handlers = {};
+  const handlers = {};
 
   const closeModal = () => closeFormResultModal(messageElement, handlers);
 
-  handlers = {
-    onFormResultEscapeKeydown: onEscapeKeydown(closeModal),
-    onOutsideClick: (evt) => {
-      if (!innerElement.contains(evt.target)) {
-        closeModal();
-      }
-    },
-    onButtonClick: () => closeModal()
+  handlers.onFormResultEscapeKeydown = onEscapeKeydown(closeModal);
+  handlers.onOutsideClick = (evt) => {
+    if (!innerElement.contains(evt.target)) {
+      closeModal();
+    }
   };
+  handlers.onButtonClick = () => closeModal();
 
   buttonElement.addEventListener('click', handlers.onButtonClick);
   document.body.addEventListener('keydown', handlers.onFormResultEscapeKeydown);
   document.body.addEventListener('click', handlers.onOutsideClick);
-
 };
 
 const showFormResultModal = (type) => {
