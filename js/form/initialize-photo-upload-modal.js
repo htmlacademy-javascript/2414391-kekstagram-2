@@ -13,7 +13,7 @@ import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine } from './photo-upload-form-validation.js';
 import { sendForm } from '../api.js';
 import { showFormResultModal } from './show-form-result-modal.js';
-import { showPhotoPreview } from './show-photo-preview.js';
+import { showPhotoPreview, resetPhotoPreview } from './photo-preview.js';
 import { initializePhotoScaleParams } from './photo-scale.js';
 import { addPhotoEffect } from './add-photo-effects.js';
 
@@ -75,6 +75,7 @@ function openPhotoUploadModal() {
 
 function closePhotoUploadModal() {
   resetUploadForm();
+  resetPhotoPreview();
 
   imgUploadModalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
