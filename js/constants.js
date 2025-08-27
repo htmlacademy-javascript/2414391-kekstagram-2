@@ -70,13 +70,15 @@ const MessageType = {
 };
 
 const SubmitButtonText = {
-  IDLE: 'Сохранить',
-  SENDING: 'Сохраняю...'
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
 };
 
 const RANDOM_PHOTOS_COUNT = 10;
 
 const RERENDER_DELAY = 500;
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 export {
   PHOTO_DESCRIPTION_COUNT,
@@ -96,5 +98,6 @@ export {
   MessageType,
   SubmitButtonText,
   RANDOM_PHOTOS_COUNT,
-  RERENDER_DELAY
+  RERENDER_DELAY,
+  FILE_TYPES
 };

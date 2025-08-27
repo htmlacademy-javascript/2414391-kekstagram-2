@@ -34,6 +34,7 @@ const scaleControlSmallerButton = imgUploadForm.querySelector('.scale__control--
 const scaleControlBiggerButton = imgUploadForm.querySelector('.scale__control--bigger');
 const scaleControlValue = imgUploadForm.querySelector('.scale__control--value');
 const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
+const effectsPreviewElements = document.querySelectorAll('.effects__preview');
 const effectLevelSliderElement = imgUploadForm.querySelector('.effect-level__slider');
 const effectsInputs = imgUploadForm.querySelectorAll('input[name="effect"]');
 const effectNoneInput = document.getElementById('effect-none');
@@ -71,6 +72,7 @@ export {
   photoModalCloseButton,
   imgUploadForm,
   imgUploadInput,
+  effectsPreviewElements,
   imgUploadModalElement,
   imgUploadModalCloseButton,
   imgUploadButton,

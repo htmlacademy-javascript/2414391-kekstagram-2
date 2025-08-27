@@ -13,9 +13,9 @@ import {
   photoCaption,
   commentTemplate,
   commentsListFragment
-} from './dom-elements.js';
-import { onEscapeKeydown } from './utils/on-escape-keydown.js';
-import { MAX_COMMENT_SHOWN_COUNT } from './constants.js';
+} from '../dom-elements.js';
+import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
+import { MAX_COMMENT_SHOWN_COUNT } from '../constants.js';
 
 let onCommentsLoaderButtonClick;
 let shownComments = 0;
