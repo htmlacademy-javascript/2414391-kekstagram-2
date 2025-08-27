@@ -70,8 +70,8 @@ const MessageType = {
 };
 
 const SubmitButtonText = {
-  IDLE: 'Сохранить',
-  SENDING: 'Сохраняю...'
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
 };
 
 const RANDOM_PHOTOS_COUNT = 10;
