@@ -1,5 +1,6 @@
 import { imgUploadForm, textHashtagsInput, textDescriptionField } from '../dom-elements.js';
-import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS } from '../constants.js';
+import { MAX_HASHTAGS_COUNT, MAX_TEXT_DESCRIPTION_LETTERS, RERENDER_DELAY } from '../constants.js';
+import { debounce } from '../utils/debounce.js';
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -47,4 +48,14 @@ const getCommentsErrorMessage = () => `Длина комментария бол�
 pristine.addValidator(textHashtagsInput, validateHashtags, getValidateHashtagsErrorMessage);
 pristine.addValidator(textDescriptionField, validateCommentField, getCommentsErrorMessage);
 
-export { pristine };
+const validateFieldInputDebounced = debounce((field) => {
+  pristine.validate(field);
+}, RERENDER_DELAY);
+
+const onFieldInputDebounced = (evt) => {
+  if (evt.target === textHashtagsInput || evt.target === textDescriptionField) {
+    validateFieldInputDebounced(evt.target);
+  }
+};
+
+export { pristine, onFieldInputDebounced };
