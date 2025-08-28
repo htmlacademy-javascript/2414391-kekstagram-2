@@ -7,7 +7,9 @@ import {
   imgUploadButton,
   scaleControlValue,
   imgUploadPreview,
-  effectNoneInput
+  effectNoneInput,
+  textHashtagsInput,
+  textDescriptionField
 } from '../dom-elements.js';
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
 import { pristine, onFieldInputDebounced } from './photo-upload-form-validation.js';
@@ -32,6 +34,8 @@ const resetUploadForm = () => {
   scaleControlValue.value = '100%';
   effectNoneInput.checked = true;
   imgUploadPreview.removeAttribute('style');
+  textHashtagsInput.value = '';
+  textDescriptionField.value = '';
   pristine.reset();
 };
 
