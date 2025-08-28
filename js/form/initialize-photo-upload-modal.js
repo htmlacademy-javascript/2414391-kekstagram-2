@@ -10,7 +10,7 @@ import {
   effectNoneInput
 } from '../dom-elements.js';
 import { onEscapeKeydown } from '../utils/on-escape-keydown.js';
-import { pristine } from './photo-upload-form-validation.js';
+import { pristine, onFieldInputDebounced } from './photo-upload-form-validation.js';
 import { sendForm } from '../api.js';
 import { showFormResultModal } from './show-form-result-modal.js';
 import { showPhotoPreview, resetPhotoPreview } from './photo-preview.js';
@@ -68,6 +68,7 @@ function openPhotoUploadModal() {
 
   document.addEventListener('keydown', onphotoUploadModalEscKeydown);
   imgUploadForm.addEventListener('submit', onFormButtonClick);
+  imgUploadForm.addEventListener('input', onFieldInputDebounced);
 
   initializePhotoScaleParams();
   addPhotoEffect();
@@ -82,6 +83,7 @@ function closePhotoUploadModal() {
 
   document.removeEventListener('keydown', onphotoUploadModalEscKeydown);
   imgUploadForm.removeEventListener('submit', onFormButtonClick);
+  imgUploadForm.removeEventListener('input', onFieldInputDebounced);
 }
 
 export { initializePhotoUploadModal };
