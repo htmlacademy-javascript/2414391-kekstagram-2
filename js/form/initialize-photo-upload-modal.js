@@ -19,7 +19,7 @@ import { showPhotoPreview, resetPhotoPreview } from './photo-preview.js';
 import { initializePhotoScaleParams } from './photo-scale.js';
 import { addPhotoEffect } from './add-photo-effects.js';
 
-const onphotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
+const onPhotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
@@ -70,7 +70,7 @@ function openPhotoUploadModal() {
   imgUploadModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  document.addEventListener('keydown', onphotoUploadModalEscKeydown);
+  document.addEventListener('keydown', onPhotoUploadModalEscKeydown);
   imgUploadForm.addEventListener('submit', onFormButtonClick);
   imgUploadForm.addEventListener('input', onFieldInputDebounced);
 
@@ -85,7 +85,7 @@ function closePhotoUploadModal() {
   imgUploadModalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', onphotoUploadModalEscKeydown);
+  document.removeEventListener('keydown', onPhotoUploadModalEscKeydown);
   imgUploadForm.removeEventListener('submit', onFormButtonClick);
   imgUploadForm.removeEventListener('input', onFieldInputDebounced);
 }

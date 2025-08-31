@@ -15,7 +15,7 @@ const changePhotoScale = (scaleValue) => {
 const increaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
   if (currentScaleValue < SCALE.MAX) {
-    currentScaleValue += SCALE.MIN;
+    currentScaleValue += SCALE.STEP;
   }
   if (currentScaleValue > SCALE.MAX) {
     currentScaleValue = SCALE.MAX;
@@ -28,7 +28,7 @@ const increaseScaleControlValue = () => {
 const decreaseScaleControlValue = () => {
   let currentScaleValue = parseInt(scaleControlValue.value, 10);
   if (currentScaleValue > SCALE.MIN) {
-    currentScaleValue -= SCALE.MIN;
+    currentScaleValue -= SCALE.STEP;
   }
   if (currentScaleValue < SCALE.MIN) {
     currentScaleValue = SCALE.MIN;

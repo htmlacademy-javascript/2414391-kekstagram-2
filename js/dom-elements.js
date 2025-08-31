@@ -48,7 +48,7 @@ const dataErrorTemplate = document.querySelector('#data-error')
 
 //фильтрация изображений
 const imgFiltersContainer = document.querySelector('.img-filters');
-const filtersButton = imgFiltersContainer.querySelector('.img-filters__button');
+const filtersButtons = document.querySelectorAll('.img-filters__button');
 const filterDefaultButton = imgFiltersContainer.querySelector('#filter-default');
 const filterRandomButton = imgFiltersContainer.querySelector('#filter-random');
 const filterDiscussedButton = imgFiltersContainer.querySelector('#filter-discussed');
@@ -89,7 +89,7 @@ export {
   effectLevelValueElement,
   dataErrorTemplate,
   imgFiltersContainer,
-  filtersButton,
+  filtersButtons,
   filterDefaultButton,
   filterRandomButton,
   filterDiscussedButton
