@@ -1,12 +1,13 @@
 import {
   photosContainer,
   imgFiltersContainer,
+  filtersButtons,
   filterDefaultButton,
   filterRandomButton,
   filterDiscussedButton
 } from '../dom-elements.js';
 import { renderThumbnails } from './render-thumbnails.js';
-import { getRandomData } from '../utils/random.js';
+import { getRandomData } from '../utils/get-random-data.js';
 import { RANDOM_PHOTOS_COUNT, RERENDER_DELAY } from '../constants.js';
 import { debounce } from '../utils/debounce.js';
 
@@ -24,11 +25,10 @@ const renderFilteredPhotos = (photosToRender) => {
 };
 
 const setActiveFilterButton = (button) => {
-  const buttons = document.querySelectorAll('.img-filters__button');
   if (button.classList.contains('img-filters__button--active')) {
     return;
   }
-  buttons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
+  filtersButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
 
   button.classList.add('img-filters__button--active');
 };
