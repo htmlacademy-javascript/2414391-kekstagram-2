@@ -21,12 +21,16 @@ import { addPhotoEffect } from './add-photo-effects.js';
 
 const onPhotoUploadModalEscKeydown = onEscapeKeydown(closePhotoUploadModal);
 
+const onImgUploadModalCloseButtonClick = () => {
+  closePhotoUploadModal();
+};
+
 const initializePhotoUploadModal = () => {
   imgUploadInput.addEventListener('change', () => {
     openPhotoUploadModal();
     showPhotoPreview();
   });
-  imgUploadModalCloseButton.addEventListener('click', closePhotoUploadModal);
+  imgUploadModalCloseButton.addEventListener('click', onImgUploadModalCloseButtonClick);
 };
 
 const resetUploadForm = () => {

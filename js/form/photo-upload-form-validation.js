@@ -14,7 +14,7 @@ const isValidHashtag = (hashtag) => /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
 
 const isEveryHashtagsValid = (hashtags) => hashtags.every(isValidHashtag);
 
-const areHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+const isHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
 
 const validateHashtags = (value) => {
   if (value.trim() === '') {
@@ -32,7 +32,7 @@ const validateHashtags = (value) => {
     return false;
   }
 
-  if (!areHashtagsUnique(hashtagsArray)) {
+  if (!isHashtagsUnique(hashtagsArray)) {
     validateHashtagsErrorMessage = 'Хэштеги повторяются';
     return false;
   }
