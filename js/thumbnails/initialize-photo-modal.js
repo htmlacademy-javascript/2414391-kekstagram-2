@@ -22,6 +22,10 @@ let shownComments = 0;
 
 const onPhotoModalEscKeydown = onEscapeKeydown(closePhotoModal);
 
+const onPhotoModalCloseButtonClick = () => {
+  closePhotoModal();
+};
+
 const renderCommentsList = (partComments) => {
   partComments.forEach(({ avatar, message, name }) => {
     const commentElement = commentTemplate.cloneNode(true);
@@ -78,7 +82,7 @@ const initializePhotoModal = (usersPhotos) => {
       openPhotoModal(clickedPhoto);
     }
   });
-  photoModalCloseButton.addEventListener('click', closePhotoModal);
+  photoModalCloseButton.addEventListener('click', onPhotoModalCloseButtonClick);
 };
 
 function closePhotoModal() {

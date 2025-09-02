@@ -34,9 +34,9 @@ const setActiveFilterButton = (button) => {
 };
 
 const filterOptions = {
-  default: (photos) => photos,
-  random: (photos) => getRandomData(photos, RANDOM_PHOTOS_COUNT),
-  discussed: (photos) =>
+  getDefault: (photos) => photos,
+  getRandom: (photos) => getRandomData(photos, RANDOM_PHOTOS_COUNT),
+  getDiscussed: (photos) =>
     photos
       .slice()
       .sort((a, b) => b.comments.length - a.comments.length)
@@ -52,9 +52,9 @@ const onFilterBtnClick = (photos, filterType) => (evt) => {
 };
 
 const addFilterHandlers = (photos) => {
-  filterDefaultButton.addEventListener('click', onFilterBtnClick(photos, 'default'));
-  filterRandomButton.addEventListener('click', onFilterBtnClick(photos, 'random'));
-  filterDiscussedButton.addEventListener('click', onFilterBtnClick(photos, 'discussed'));
+  filterDefaultButton.addEventListener('click', onFilterBtnClick(photos, 'getDefault'));
+  filterRandomButton.addEventListener('click', onFilterBtnClick(photos, 'getRandom'));
+  filterDiscussedButton.addEventListener('click', onFilterBtnClick(photos, 'getDiscussed'));
 };
 
 export { openFilterManager, addFilterHandlers };
